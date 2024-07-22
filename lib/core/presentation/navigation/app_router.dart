@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:health_goody/core/presentation/pages/dummy_screen.dart';
 import 'package:health_goody/core/presentation/pages/signin_screen.dart';

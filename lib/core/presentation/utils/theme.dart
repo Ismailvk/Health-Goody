@@ -15,7 +15,7 @@ ThemeData getLightTheme() {
     applyElevationOverlayColor: false,
     dividerColor: const Color(0xFFECEDF1),
     brightness: Brightness.light,
-    primaryColor: const Color(0xFF246BFD),
+    primaryColor: const Color(0xff1CA3E4),
     textTheme: TextTheme(
       titleSmall: GoogleFonts.caveat(
         textStyle: TextStyle(
