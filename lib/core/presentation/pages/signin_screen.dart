@@ -115,7 +115,7 @@ class _SigninScreenState extends State<SigninScreen> {
                             style: Theme.of(context).textTheme.headlineSmall),
                         SizedBox(height: 32.h),
                         Text(MessageGenerator.getLabel('email')),
-                        TextField(
+                        TextFormField(
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
                           style: Theme.of(context).textTheme.labelSmall,
@@ -134,7 +134,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                   .labelSmall
                                   ?.copyWith(),
                             ),
-                            prefixIcon: const Icon(Icons.email_outlined),
+                            // suffixIcon: const Icon(Icons.email_outlined),
                             filled: true,
                             fillColor: appColors.inputBgFill,
                             border: OutlineInputBorder(
@@ -142,9 +142,8 @@ class _SigninScreenState extends State<SigninScreen> {
                                 borderRadius: BorderRadius.circular(8)),
                           ),
                         ),
-                        SizedBox(
-                          height: 8.h,
-                        ),
+                        SizedBox(height: 8.h),
+                        Text(MessageGenerator.getLabel('password')),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
@@ -169,7 +168,8 @@ class _SigninScreenState extends State<SigninScreen> {
                                     .labelSmall
                                     ?.copyWith(),
                               ),
-                              prefixIcon: const Icon(Icons.password_outlined),
+                              suffixIcon:
+                                  const Icon(Icons.visibility_off_outlined),
                               filled: true,
                               fillColor: appColors.inputBgFill,
                               border: OutlineInputBorder(

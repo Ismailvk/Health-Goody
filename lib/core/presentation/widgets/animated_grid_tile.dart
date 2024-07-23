@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:health_goody/core/presentation/utils/theme.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AnimatedClickableTile extends StatefulWidget {
