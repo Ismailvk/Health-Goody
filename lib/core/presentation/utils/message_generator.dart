@@ -3,7 +3,8 @@ class MessageGenerator {
     "en": {
       "un-expected-error": "Some un expected error happened!",
       "un-expected-error-message": "Some un expected error happened!",
-      "auth-welcome": "Input your credentials here to log in to the system.",
+      "auth-signin": "Sign In",
+      "auth-signin-message": "Hi! Welcome back, you've been missed",
       "auth-visit-site-guide":
           "To explore in-depth instructions for utilizing this rapid starter Flutter project, head over to https://github.com/midhunarmid/health_goody to kick off your journey.",
     }
@@ -12,6 +13,9 @@ class MessageGenerator {
   static const Map<String, Map<String, String>> _labelMap = {
     "en": {
       "OK": "OK",
+      "email": "Email",
+      "password": "Password",
+      "name": "Name",
     }
   };
 

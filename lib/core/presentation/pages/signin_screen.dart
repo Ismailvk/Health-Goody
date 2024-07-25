@@ -110,43 +110,36 @@ class _SigninScreenState extends State<SigninScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         SizedBox(height: 32.h),
-                        Text(
-                          MessageGenerator.getMessage("auth-welcome"),
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(color: Colors.blue),
-                        ),
+                        Text(MessageGenerator.getMessage("auth-signin"),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.headlineSmall),
                         SizedBox(height: 32.h),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            controller: _emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            style: Theme.of(context).textTheme.labelSmall,
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              hintStyle: Theme.of(context)
+                        Text(MessageGenerator.getLabel('email')),
+                        TextField(
+                          controller: _emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          style: Theme.of(context).textTheme.labelSmall,
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(color: appColors.disableBgColor),
+                            hintText:
+                                MessageGenerator.getLabel('user@domain.com'),
+                            label: Text(
+                              MessageGenerator.getLabel('type in email'),
+                              style: Theme.of(context)
                                   .textTheme
                                   .labelSmall
-                                  ?.copyWith(color: appColors.disableBgColor),
-                              hintText:
-                                  MessageGenerator.getLabel('user@domain.com'),
-                              label: Text(
-                                MessageGenerator.getLabel('type in email'),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall
-                                    ?.copyWith(),
-                              ),
-                              prefixIcon: const Icon(Icons.email_outlined),
-                              filled: true,
-                              fillColor: appColors.inputBgFill,
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(8)),
+                                  ?.copyWith(),
                             ),
+                            prefixIcon: const Icon(Icons.email_outlined),
+                            filled: true,
+                            fillColor: appColors.inputBgFill,
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(8)),
                           ),
                         ),
                         SizedBox(
