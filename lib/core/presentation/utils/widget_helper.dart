@@ -38,9 +38,7 @@ showSingleButtonAlertDialog({
           ? MessageGenerator.getLabel("OK")
           : MessageGenerator.getLabel(button),
       iconSrc: '',
-      isActive: false,
       bgColor: appColors.pleasantButtonBg,
-      bgColorHover: appColors.pleasantButtonBgHover,
       press: () {
         Navigator.pop(context);
         positiveAction?.call();
@@ -86,9 +84,7 @@ showTwoButtonAlertDialog({
           ? MessageGenerator.getLabel("OK")
           : MessageGenerator.getLabel(positiveButton),
       iconSrc: '',
-      isActive: false,
       bgColor: positiveButtonBg,
-      bgColorHover: positiveButtonBgHover,
       press: () {
         Navigator.pop(context);
         positiveAction.call();
@@ -99,9 +95,7 @@ showTwoButtonAlertDialog({
           ? MessageGenerator.getLabel("Cancel")
           : MessageGenerator.getLabel(negativeButton),
       iconSrc: '',
-      isActive: false,
       bgColor: negativeButtonBg,
-      bgColorHover: negativeButtonBgHover,
       press: () {
         Navigator.pop(context);
         negativeAction.call();

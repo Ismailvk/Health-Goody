@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:health_goody/core/presentation/blocs/auth/authentication_bloc.dart';
 import 'package:health_goody/core/presentation/utils/constants.dart';
+import 'package:health_goody/core/presentation/utils/image_paths.dart';
 import 'package:health_goody/core/presentation/utils/message_generator.dart';
+import 'package:health_goody/core/presentation/utils/progress_dialogue.dart';
 import 'package:health_goody/core/presentation/utils/theme.dart';
 import 'package:health_goody/core/presentation/utils/widget_helper.dart';
 import 'package:health_goody/core/presentation/widgets/animated_container.dart';
-import 'package:health_goody/core/presentation/widgets/web_optimised_widget.dart';
+import 'package:health_goody/core/presentation/widgets/signin_method_circle.dart';
+import 'package:health_goody/core/presentation/widgets/textformfield.dart';
 import 'package:go_router/go_router.dart';
-import 'package:loading_indicator/loading_indicator.dart';
-import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_linkify/flutter_linkify.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:flutter_linkify/flutter_linkify.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class _SigninScreenState extends State<SigninScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   final AuthenticationBloc _bloc = AuthenticationBloc();
-  ProgressDialog? pr;
+  CustomProgressDialog? _progressDialog;
 
   @override
   void initState() {
@@ -48,46 +49,14 @@ class _SigninScreenState extends State<SigninScreen> {
       listener: (ctx, state) {
         appLogger.i(state);
 
-        if (pr?.isShowing() ?? false) {
-          pr?.hide();
-        }
+        _progressDialog?.hide();
+
         if (state is LoadingState) {
-          pr = ProgressDialog(
-            context,
-            type: ProgressDialogType.normal,
-            isDismissible: false,
-          );
-          pr?.style(
-            backgroundColor: appColors.screenBg,
-            padding: WebOptimisedWidget.getWebOptimisedHorizonatalPadding(),
+          _progressDialog = CustomProgressDialog(context);
+          _progressDialog?.show(
+            title: state.loadingInfo.title,
             message: state.loadingInfo.message,
-            widgetAboveTheDialog: Text(
-              state.loadingInfo.title,
-              style: Theme.of(context)
-                  .textTheme
-                  .labelSmall
-                  ?.copyWith(fontWeight: FontWeight.w700),
-            ),
-            progressWidget: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: LoadingIndicator(
-                indicatorType: Indicator.lineScalePulseOutRapid,
-                colors: appColors.rainbowColors,
-                strokeWidth: 2,
-                backgroundColor: appColors.screenBg,
-                pathBackgroundColor: appColors.screenBg,
-              ),
-            ),
-            progressTextStyle: Theme.of(context)
-                .textTheme
-                .labelSmall
-                ?.copyWith(fontWeight: FontWeight.w400),
-            messageTextStyle: Theme.of(context)
-                .textTheme
-                .labelSmall
-                ?.copyWith(fontWeight: FontWeight.w400),
           );
-          pr?.show();
         } else if (state is AuthErrorState) {
           showSingleButtonAlertDialog(
               context: context, title: state.title, message: state.message);
@@ -113,90 +82,32 @@ class _SigninScreenState extends State<SigninScreen> {
                         Text(MessageGenerator.getMessage("auth-signin"),
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.headlineSmall),
-                        SizedBox(height: 32.h),
-                        Text(MessageGenerator.getLabel('email')),
-                        TextFormField(
-                          controller: _emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          style: Theme.of(context).textTheme.labelSmall,
-                          textInputAction: TextInputAction.next,
-                          decoration: InputDecoration(
-                            hintStyle: Theme.of(context)
-                                .textTheme
-                                .labelSmall
-                                ?.copyWith(color: appColors.disableBgColor),
-                            hintText:
-                                MessageGenerator.getLabel('user@domain.com'),
-                            label: Text(
-                              MessageGenerator.getLabel('type in email'),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelSmall
-                                  ?.copyWith(),
-                            ),
-                            // suffixIcon: const Icon(Icons.email_outlined),
-                            filled: true,
-                            fillColor: appColors.inputBgFill,
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(8)),
-                          ),
+                        SizedBox(height: 5.h),
+                        Text(
+                          MessageGenerator.getMessage('auth-signin-message'),
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: Colors.grey),
                         ),
+                        SizedBox(height: 28.h),
+                        Text(MessageGenerator.getLabel('email')),
+                        SizedBox(height: 5.h),
+                        TextFormFieldWid(
+                            controller: _emailController,
+                            hintText:
+                                MessageGenerator.getLabel('user@domain.com')),
                         SizedBox(height: 8.h),
                         Text(MessageGenerator.getLabel('password')),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
+                        SizedBox(height: 5.h),
+                        TextFormFieldWid(
+                            isSufix: true,
                             controller: _passwordController,
-                            keyboardType: TextInputType.text,
-                            obscureText: true,
-                            style: Theme.of(context).textTheme.labelSmall,
-                            textInputAction: TextInputAction.go,
-                            onSubmitted: (value) {
-                              submitCredentials();
-                            },
-                            decoration: InputDecoration(
-                              hintStyle: Theme.of(context)
-                                  .textTheme
-                                  .labelSmall
-                                  ?.copyWith(color: appColors.disableBgColor),
-                              hintText: MessageGenerator.getLabel('user@123'),
-                              label: Text(
-                                MessageGenerator.getLabel('type in password'),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall
-                                    ?.copyWith(),
-                              ),
-                              suffixIcon:
-                                  const Icon(Icons.visibility_off_outlined),
-                              filled: true,
-                              fillColor: appColors.inputBgFill,
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(8)),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 8.h,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: AnimatedClickableTextContainer(
-                            title: MessageGenerator.getLabel('Sign In'),
-                            iconSrc: '',
-                            isActive: false,
-                            bgColor: appColors.pleasantButtonBg,
-                            bgColorHover: appColors.pleasantButtonBgHover,
-                            press: () {
-                              submitCredentials();
-                            },
-                          ),
-                        ),
-                        SizedBox(height: 16.h),
+                            hintText: MessageGenerator.getLabel('user@123')),
+                        SizedBox(height: 5.h),
                         RichText(
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.end,
                           text: TextSpan(
                             style: Theme.of(context)
                                 .textTheme
@@ -209,7 +120,8 @@ class _SigninScreenState extends State<SigninScreen> {
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelSmall
-                                      ?.copyWith(color: Colors.red),
+                                      ?.copyWith(
+                                          color: appColors.pleasantButtonBg),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
                                       context.go("/forgotPassword");
@@ -217,10 +129,58 @@ class _SigninScreenState extends State<SigninScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 16.h),
+                        SizedBox(height: 8.h),
+                        AnimatedClickableTextContainer(
+                          title: MessageGenerator.getLabel('Sign In'),
+                          iconSrc: '',
+                          bgColor: appColors.pleasantButtonBg,
+                          press: () {
+                            submitCredentials();
+                          },
+                        ),
+                        SizedBox(height: 30.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                child: Divider(),
+                              ),
+                            ),
+                            Text(
+                              MessageGenerator.getMessage(
+                                  'auth-signin-methods'),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(color: Colors.grey),
+                            ),
+                            const Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                child: Divider(),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 40.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SignInCircleWid(
+                                imagePath: ImagePaths.facebookSvg),
+                            SizedBox(width: 8.w),
+                            const SignInCircleWid(
+                                imagePath: ImagePaths.googleSvg),
+                          ],
+                        ),
+                        SizedBox(height: 20.h),
                         RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
+                            text: MessageGenerator.getMessage(
+                                'auth-signin-no-account'),
                             style: Theme.of(context)
                                 .textTheme
                                 .labelSmall
@@ -230,7 +190,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                   text: MessageGenerator.getLabel('Sign Up'),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .labelSmall
+                                      .labelMedium
                                       ?.copyWith(color: Colors.red),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
@@ -239,24 +199,23 @@ class _SigninScreenState extends State<SigninScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 32.h),
-                        Linkify(
-                          onOpen: (link) async {
-                            if (!await launchUrl(Uri.parse(link.url))) {}
-                          },
-                          text: MessageGenerator.getMessage(
-                              "auth-visit-site-guide"),
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelSmall
-                              ?.copyWith(),
-                          linkStyle: Theme.of(context)
-                              .textTheme
-                              .labelSmall
-                              ?.copyWith(color: appColors.linkTextColor),
-                        ),
-                        SizedBox(height: 32.h),
+
+                        // Linkify(
+                        //   onOpen: (link) async {
+                        //     if (!await launchUrl(Uri.parse(link.url))) {}
+                        //   },
+                        //   text: MessageGenerator.getMessage(
+                        //       "auth-visit-site-guide"),
+                        //   textAlign: TextAlign.center,
+                        //   style: Theme.of(context)
+                        //       .textTheme
+                        //       .labelSmall
+                        //       ?.copyWith(),
+                        //   linkStyle: Theme.of(context)
+                        //       .textTheme
+                        //       .labelSmall
+                        //       ?.copyWith(color: appColors.linkTextColor),
+                        // ),
                       ],
                     ),
                   ),

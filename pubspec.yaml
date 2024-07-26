@@ -28,6 +28,7 @@ dependencies:
   path_provider: ^2.1.1
   logger: ^2.0.2+1
   get_it: ^7.6.4
+  flutter_svg: ^2.0.10+1
 
 
 dev_dependencies:
@@ -41,3 +42,4 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/svgs/
