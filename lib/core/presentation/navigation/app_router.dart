@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:health_goody/core/presentation/pages/dummy_screen.dart';
+import 'package:health_goody/core/presentation/pages/otp_scree.dart';
 import 'package:health_goody/core/presentation/pages/signin_screen.dart';
+import 'package:health_goody/core/presentation/pages/signup_image_select.dart';
+import 'package:health_goody/core/presentation/pages/signup_screen.dart';
 import 'package:health_goody/core/presentation/utils/widget_helper.dart';
 import 'package:go_router/go_router.dart';
 
@@ -39,6 +42,22 @@ final GoRouter router = GoRouter(
           ),
         ),
         GoRoute(
+          path: 'signup',
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: SignupScreen(),
+          ),
+        ),
+        GoRoute(
+          path: 'signupAuthImage',
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: SignupAuthImage(),
+          ),
+        ),
+        GoRoute(
           path: 'forgotPassword',
           pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
             context: context,
@@ -52,6 +71,14 @@ final GoRouter router = GoRouter(
             context: context,
             state: state,
             child: const DummyScreen(text: "Home Screen"),
+          ),
+        ),
+        GoRoute(
+          path: 'otp',
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: const OtpScreen(),
           ),
         ),
       ],

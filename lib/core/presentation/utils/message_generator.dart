@@ -7,8 +7,15 @@ class MessageGenerator {
       "auth-signin-no-account": "Don't have an account? ",
       "auth-signin-methods": "Or sign in with",
       "auth-signin-message": "Hi! Welcome back, you've been missed",
-      "auth-visit-site-guide":
-          "To explore in-depth instructions for utilizing this rapid starter Flutter project, head over to https://github.com/midhunarmid/health_goody to kick off your journey.",
+      "auth-create-account": "Create Account",
+      "auth-select-gender": "Select Gender",
+      "user-enter-name": "Enter Your Name",
+      "user-enter-age": "Enter Your Age",
+      "auth-complete-profile-message":
+          "Don't worry, Only you can see your personal data. No one else will be able to see it.",
+      "auth-create-account-message":
+          "Fill your information below or register with your own account.",
+      "auth-visit-site-guide": "Agree with https://github.com/IsmailVk/",
     }
   };
 
@@ -18,6 +25,11 @@ class MessageGenerator {
       "email": "Email",
       "password": "Password",
       "name": "Name",
+      "mobile": "Mobile No",
+      "auth-complete-profile": "Complete Your Profile",
+      "age": "Age",
+      "profile": "Profile",
+      "create-account": "Create Account",
     }
   };
 
