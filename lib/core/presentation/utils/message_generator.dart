@@ -9,6 +9,7 @@ class MessageGenerator {
       "auth-signin-message": "Hi! Welcome back, you've been missed",
       "auth-create-account": "Create Account",
       "auth-select-gender": "Select Gender",
+      "auth-verifyotp-message": "Please enter the code we just sent to email",
       "user-enter-name": "Enter Your Name",
       "user-enter-age": "Enter Your Age",
       "auth-complete-profile-message":
@@ -30,6 +31,7 @@ class MessageGenerator {
       "age": "Age",
       "profile": "Profile",
       "create-account": "Create Account",
+      'verify-otp': "Verify Otp"
     }
   };
 

@@ -8,6 +8,7 @@ import 'package:health_goody/core/presentation/utils/message_generator.dart';
 import 'package:health_goody/core/presentation/utils/theme.dart';
 import 'package:health_goody/core/presentation/widgets/animated_container.dart';
 import 'package:health_goody/core/presentation/widgets/drop_down.dart';
+import 'package:health_goody/core/presentation/widgets/signin_method_circle.dart';
 import 'package:health_goody/core/presentation/widgets/textformfield.dart';
 
 class SignupAuthImage extends StatelessWidget {
@@ -19,31 +20,7 @@ class SignupAuthImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(55.h),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: SafeArea(
-            child: ListTile(
-              leading: CircleAvatar(
-                radius: 20.h,
-                backgroundColor: Colors.black,
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 19.h,
-                  child: InkWell(
-                      onTap: () => Navigator.pop(context),
-                      child: const Icon(Icons.arrow_back_outlined)),
-                ),
-              ),
-              title: Text(
-                MessageGenerator.getLabel('profile'),
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-            ),
-          ),
-        ),
-      ),
+      appBar: appbar(context, MessageGenerator.getLabel('profile')),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(20),
@@ -80,13 +57,16 @@ class SignupAuthImage extends StatelessWidget {
                     Positioned(
                       right: 5,
                       bottom: 5,
-                      child: CircleAvatar(
-                        backgroundColor: appColors.primaryColor,
-                        radius: 13.h,
-                        child: Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                          size: 14.h,
+                      child: InkWell(
+                        onTap: () => showImagePickerBottomSheet(context),
+                        child: CircleAvatar(
+                          backgroundColor: appColors.primaryColor,
+                          radius: 13.h,
+                          child: Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                            size: 14.h,
+                          ),
                         ),
                       ),
                     )
@@ -115,7 +95,7 @@ class SignupAuthImage extends StatelessWidget {
                     AnimatedClickableTextContainer(
                       iconSrc: '',
                       title: MessageGenerator.getLabel('create-account'),
-                      press: () => context.push('otp'),
+                      press: () => context.push('/otp'),
                       bgColor: appColors.pleasantButtonBg,
                     ),
                     SizedBox(height: 20.h),
@@ -126,6 +106,62 @@ class SignupAuthImage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void showImagePickerBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.all(16.0),
+          height: 140.h,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Choose your image',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              SizedBox(height: 15.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.camera, size: 40),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      const Text('Camera')
+                    ],
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.photo_library, size: 40),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      const Text('Gallery')
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

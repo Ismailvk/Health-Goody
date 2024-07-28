@@ -48,7 +48,7 @@ class SignupScreen extends StatelessWidget {
                 Text(MessageGenerator.getLabel('name')),
                 SizedBox(height: 5.h),
                 TextFormFieldWid(
-                    controller: emailController,
+                    controller: nameController,
                     hintText: MessageGenerator.getMessage('user-enter-name')),
                 Text(MessageGenerator.getLabel('email')),
                 SizedBox(height: 5.h),
@@ -58,7 +58,7 @@ class SignupScreen extends StatelessWidget {
                 Text(MessageGenerator.getLabel('mobile')),
                 SizedBox(height: 5.h),
                 TextFormFieldWid(
-                    controller: passwordController,
+                    controller: mobileController,
                     hintText: MessageGenerator.getLabel('1234567890')),
                 Text(MessageGenerator.getLabel('password')),
                 SizedBox(height: 5.h),

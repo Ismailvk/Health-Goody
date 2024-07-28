@@ -58,6 +58,14 @@ final GoRouter router = GoRouter(
           ),
         ),
         GoRoute(
+          path: 'otp',
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: const OtpScreen(),
+          ),
+        ),
+        GoRoute(
           path: 'forgotPassword',
           pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
             context: context,
@@ -71,14 +79,6 @@ final GoRouter router = GoRouter(
             context: context,
             state: state,
             child: const DummyScreen(text: "Home Screen"),
-          ),
-        ),
-        GoRoute(
-          path: 'otp',
-          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
-            context: context,
-            state: state,
-            child: const OtpScreen(),
           ),
         ),
       ],
