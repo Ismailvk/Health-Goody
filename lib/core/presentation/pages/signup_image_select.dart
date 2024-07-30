@@ -109,6 +109,8 @@ class SignupAuthImage extends StatelessWidget {
     );
   }
 
+  //Bottom sheet
+
   void showImagePickerBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
