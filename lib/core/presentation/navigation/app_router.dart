@@ -4,6 +4,7 @@ import 'package:health_goody/core/presentation/pages/otp_scree.dart';
 import 'package:health_goody/core/presentation/pages/signin_screen.dart';
 import 'package:health_goody/core/presentation/pages/signup_image_select.dart';
 import 'package:health_goody/core/presentation/pages/signup_screen.dart';
+import 'package:health_goody/core/presentation/pages/splash_screen.dart';
 import 'package:health_goody/core/presentation/utils/widget_helper.dart';
 import 'package:go_router/go_router.dart';
 
@@ -30,9 +31,17 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return const SigninScreen();
+        return const SplashScreen();
       },
       routes: <RouteBase>[
+        GoRoute(
+          path: 'splash',
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: const SplashScreen(),
+          ),
+        ),
         GoRoute(
           path: 'signin',
           pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(

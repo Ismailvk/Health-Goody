@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:health_goody/core/presentation/navigation/app_router.dart';
 import 'package:health_goody/core/presentation/pages/signin_screen.dart';
+import 'package:health_goody/core/presentation/pages/splash_screen.dart';
 import 'package:health_goody/core/presentation/utils/di.dart';
 import 'package:health_goody/core/presentation/utils/theme.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
           darkTheme: appTheme,
         );
       },
-      child: const SigninScreen(),
+      child: const SplashScreen(),
     );
   }
 

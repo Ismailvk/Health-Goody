@@ -12,6 +12,7 @@ ThemeData appTheme = getLightTheme();
 
 ThemeData getLightTheme() {
   return ThemeData(
+    scaffoldBackgroundColor: Colors.white,
     applyElevationOverlayColor: false,
     dividerColor: const Color(0xFFECEDF1),
     brightness: Brightness.light,
