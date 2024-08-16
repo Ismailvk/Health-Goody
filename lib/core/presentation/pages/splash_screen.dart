@@ -20,6 +20,6 @@ class SplashScreen extends StatelessWidget {
 
   loginCheck(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 10));
-    context.go('/signin');
+    context.pushReplacementNamed('/signin');
   }
 }
